@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Payment</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <meta name="stripe-pk" content="<%= Rails.application.secrets.stripe_publishable_key %>">
+  </head>
+
+  <body>
+    <nav>
+      <% if user_signed_in? %>
+          |
+          <span>Hello <%= current_user.first_name %>,</span>
+          <%= link_to 'Logout', sessions_path, method: :delete, data: { confirm: 'Logout?' } %>
+        <% else %>
+          |
+          <%= link_to 'Sign Up', new_user_path %>
+          |
+          <%= link_to 'Login', new_session_path %>
+        <% end %>
+      <hr>
+         <% if flash[:notice] %>
+           <div class="alert alert-success"><%= flash[:notice] %></div>
+         <% elsif flash[:alert] %>
+           <div class="alert alert-danger"><%= flash[:alert] %></div>
+         <% end %>
+         <%#= notice || alert %>
+       <hr>
+    </nav>
+    <%= yield %>
+  </body>
+</html>
