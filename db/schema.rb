@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170517000509) do
+ActiveRecord::Schema.define(version: 20170520015753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "details"
+    t.integer  "amount"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
+  end
+
+  create_table "splitters", force: :cascade do |t|
+    t.boolean  "request"
+    t.integer  "user_id"
+    t.integer  "amountOwing"
+    t.boolean  "paid"
+    t.integer  "message_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["message_id"], name: "index_splitters_on_message_id", using: :btree
+    t.index ["user_id"], name: "index_splitters_on_user_id", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
@@ -26,4 +47,7 @@ ActiveRecord::Schema.define(version: 20170517000509) do
     t.index ["api_token"], name: "index_users_on_api_token", using: :btree
   end
 
+  add_foreign_key "messages", "users"
+  add_foreign_key "splitters", "messages"
+  add_foreign_key "splitters", "users"
 end

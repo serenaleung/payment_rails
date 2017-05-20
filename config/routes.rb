@@ -7,12 +7,18 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-	namespace :v1 do
+	   namespace :v1 do
 		# /api/v1/questions.json # => INDEX
       # /api/v1/questions/1.json # => SHOW
-		resources :sessions, only: [:create]
-    resources :users, only: [:create, :index]
-  	end
+  		resources :sessions, only: [:create] do
+        delete :destroy, on: :collection
+      end
+
+      resources :users, only: [:create, :index]
+
+      resources :messages, only: [:create, :index]
+      resources :splitter, only: [:create, :index]
+    end
   end
 
   resources :charges
