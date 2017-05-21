@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170520015753) do
+ActiveRecord::Schema.define(version: 20170521054711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20170520015753) do
   end
 
   create_table "splitters", force: :cascade do |t|
-    t.boolean  "request"
     t.integer  "user_id"
     t.integer  "amountOwing"
     t.boolean  "paid"

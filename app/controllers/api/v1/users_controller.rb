@@ -1,8 +1,13 @@
 class Api::V1::UsersController < ApplicationController
+  skip_before_action :verify_authenticity_token
 
   def index
     @u = User.all;
-    render json: @u.select(:first_name).to_json 
+    render json: @u.select(:first_name).to_json
+  end
+
+  def new
+    @user = User.new
   end
 
   def create
