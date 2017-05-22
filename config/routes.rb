@@ -16,8 +16,9 @@ Rails.application.routes.draw do
         delete :destroy, on: :collection
       end
 
+      resources :messages, only: [:new, :create]
+      
       resources :users, only: [:create, :index] do
-        resources :messages, only: [:new, :create]
         resources :splitter, only: [:create, :index]
       end
     end

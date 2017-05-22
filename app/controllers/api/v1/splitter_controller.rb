@@ -4,9 +4,9 @@ class Api::V1::SplitterController < ApplicationController
     # @splitterId = Splitter.find(params[:user_id])
     # answer_params = params.require(:answer).permit(:body)
 
-    User.pluck(:id)
-    amount = params[:amount].to_f
-    people = params[:people].to_f
+    # User.pluck(:id)
+    # amount = params[:amount].to_f
+    # people = params[:people].to_f
     # @result = ((amount * (1 + tax/100) * (1 + tip/100)) / people).round(2)
 
     # renders and makes it load within the same page
@@ -24,5 +24,11 @@ class Api::V1::SplitterController < ApplicationController
     else
       render json: {error: 'Splitter did not save' }
     end
+  end
+
+  def amountOwing
+    peopleCount = user_id.length
+    amountPerPerson = message.amount / peopleCount
+
   end
 end

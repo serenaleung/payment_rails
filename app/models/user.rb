@@ -1,6 +1,10 @@
 class User < ApplicationRecord
   has_secure_password
-  has_many :message
+  has_many :splitters, dependent: :destroy
+  has_many :messages, through: :splitterss
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
+
+
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :first_name, presence:true

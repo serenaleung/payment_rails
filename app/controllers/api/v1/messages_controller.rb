@@ -1,35 +1,27 @@
 class Api::V1::MessagesController < ApplicationController
-skip_before_action :verify_authenticity_token
-  def new
-    message = Message.new
-  end
+  skip_before_action :verify_authenticity_token
+  # after_action :add_users, only: :create
 
   def create
-    # @message = Message.new([:details, :amount, :user_id])
-    #
-    # if @message.save
-    #   render json: {success: @message }
-    # else
-    #   render json: {error: 'Message did not pass through' }
-    # end
+    user = User.find_by_api_token("3H0xoOVzMVHjsh27C7e8PwQSrA_PaAFCgBn-rYKfjHM")
+    @message = Message.new(message_params)
+    @message.user = user
+    byebug
 
-    message_params = params.require(:message).permit(:details, :amount)
 
-    message = Message.new message_params
-    message.user = @user
-
-    if message.save
-      render json: {success: message}
+    if @message.save
+      render json: { success: @message }
     else
-      render json: {error: message.errors.full_messages.join(', ')}
+      render json: { error: @message.errors.full_message.join(', ') }
     end
-
   end
-
-  private
 
   def message_params
-   params.require(:message).permit([:details, :amount])
+    params.require(:message).permit([:details, :amount, :user_ids])
   end
 
+  def add_users
+    user_ids = params[:message][:user_ids]&.reject { |item| item.blank? }
+    @message.user_ids += user_ids
+  end
 end

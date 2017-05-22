@@ -12,7 +12,15 @@
   </div>
   <div class="field">
       <%= f.label :contacts %>
-      <%= select_tag("user[user_id]", options_from_collection_for_select(User.all, 'id', 'first_name')) %>
+      <%#= f.select :user_ids, options_from_collection_for_select(@contacts, 'id', 'first_name'), multiple: true, class: 'form_input', id: 'unique_id' %>
+
+      <%= f.select(:user_ids, @contacts.collect {|c| [ c.first_name, c.id ] }, {}, { :multiple => true }) %>
+
+
+
+      <%#= select_tag "user_id", "<option>Selena</option><option>Serena</option>".html_safe, multiple: true, class: 'form_input', id: 'unique_id' %>
+      <%#= select_tag("user[user_id]", options_from_collection_for_select(User.all, 'id', 'first_name')) %>
+      <%#= f.select "user_id", options_from_collection_for_select(@contacts, 'id', 'first_name'), {multiple: true, size: User.all.length } %>
   </div>
   <%= f.submit 'Pay', class: 'btn btn-primary' %>
   <%= console %>
