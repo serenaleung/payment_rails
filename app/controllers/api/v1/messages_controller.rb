@@ -2,6 +2,10 @@ class Api::V1::MessagesController < ApplicationController
   skip_before_action :verify_authenticity_token
   # after_action :add_users, only: :create
 
+  def index
+    
+  end
+
   def create
     user = User.find_by_api_token("3H0xoOVzMVHjsh27C7e8PwQSrA_PaAFCgBn-rYKfjHM")
     @message = Message.new(message_params)

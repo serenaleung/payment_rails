@@ -2,8 +2,10 @@ class Api::V1::UsersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @u = User.all;
-    render json: @u.select(:first_name).to_json
+    @current_user = request.headers['auth']
+    p @current_user
+    @u = User.where.not(api_token: @current_user);
+    render json: @u.select(:first_name, :id, :api_token).to_json
   end
 
   def new

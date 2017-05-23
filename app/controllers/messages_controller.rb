@@ -17,7 +17,6 @@ class MessagesController < ApplicationController
     # user_ids = params[:message][:user_ids].reject { |item| item.blank? }
     # user_ids.each { |uid| @message.user_ids <<  uid }
     # @message.user_ids += user_ids
-    byebug
 
     # if @message.save
     #   flash[:notice] = 'Message created!'
