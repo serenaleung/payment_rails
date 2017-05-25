@@ -12,7 +12,7 @@ class Api::V1::MessagesController < ApplicationController
     @message.user = user
 
     if @message.save
-      render json: { success: @message }
+      render json: { success: @message, flash_message: "Jason and Chelsea owes you $#{@message.amount / 3}" }
     else
       render json: { error: @message.errors.full_message.join(', ') }
     end
