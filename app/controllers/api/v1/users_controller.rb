@@ -4,8 +4,18 @@ class Api::V1::UsersController < ApplicationController
   def index
     @current_user = request.headers['auth']
     p @current_user
-    @u = User.where.not(api_token: @current_user);
-    render json: @u.select(:first_name, :id, :api_token).to_json
+    @users = User.where.not(api_token: @current_user);
+
+    @users_obj = @users.each_with_object([]) do |user, memo|
+      user_data = {
+        id: user.id,
+        name: user.first_name,
+        api_token: user.api_token
+      }
+      memo << user_data
+    end
+
+    render json: @users_obj
   end
 
   def new

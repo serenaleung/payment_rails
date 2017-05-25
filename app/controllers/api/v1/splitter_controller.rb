@@ -11,7 +11,7 @@ class Api::V1::SplitterController < ApplicationController
     redirect_to bill_splitter_path({result: result})
 
     @splitter = Splitter.new([:amountOwing, :paid, :user_id, :message_id])
-    if @splitter.save
+    if @message.save
       amountOwing
       render json: {success: @splitter }
     else
