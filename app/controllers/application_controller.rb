@@ -10,12 +10,11 @@ class ApplicationController < ActionController::Base
   helper_method :authenticate_user!
 
   def user_signed_in?
-    current_user.present?
+    session[:user_id].present?
   end
   helper_method :user_signed_in?
 
   def current_user
-    # ||= conditional assignment
     @current_user ||= User.find_by_id(session[:user_id])
   end
   helper_method :current_user
