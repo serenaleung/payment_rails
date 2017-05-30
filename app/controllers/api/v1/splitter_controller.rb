@@ -6,7 +6,6 @@ class Api::V1::SplitterController < ApplicationController
   end
 
   def create
-    # @splitterId = Splitter.find(params[:user_id])
     result = ((amount / [:message]user_ids.length).round(2))
     redirect_to bill_splitter_path({result: result})
 
